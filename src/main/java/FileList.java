@@ -14,6 +14,7 @@ public class FileList {
         File configFile = new File(configFilename);
         BufferedReader reader = new BufferedReader(new FileReader(configFile));
         fullFilenames = reader.lines()
+                .filter(filename -> !filename.startsWith("//"))
                 .map(filename -> filename.replaceFirst("ftp://.*?/", ""))
                 .collect(Collectors.toList());
         reader.close();
