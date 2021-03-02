@@ -8,8 +8,14 @@ import java.util.stream.Collectors;
 public class FileList {
     private List<String> fullFilenames;
     private List<String> filenames;
+    private String configFilename;
 
-    public FileList(String configFilename) throws IOException {
+    public FileList(String configFilename) {
+        this.configFilename = configFilename;
+    }
+
+    // Refresh list every time now in case list is edited
+    private void refreshList() throws IOException {
         // Read in file names
         File configFile = new File(configFilename);
         BufferedReader reader = new BufferedReader(new FileReader(configFile));
@@ -25,11 +31,13 @@ public class FileList {
                 .collect(Collectors.toList());
     }
 
-    public List<String> getFilenames() {
+    public List<String> getFilenames() throws IOException {
+        refreshList();
         return filenames;
     }
 
-    public List<String> getFullFilenames() {
+    public List<String> getFullFilenames() throws IOException {
+        refreshList();
         return fullFilenames;
     }
 }

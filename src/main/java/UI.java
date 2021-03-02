@@ -30,6 +30,12 @@ public class UI {
         switch (result) {
             case 0:
                 // Pull code
+                boolean confirm1 = confirmWindow("Are you sure you want to pull?");
+                if (!confirm1) {
+                    System.out.println("Pull cancelled");
+                    break;
+                }
+
                 FileManager.pull();
                 break;
             case 1:
@@ -43,8 +49,8 @@ public class UI {
                 }
 
                 String filename = filenames.get(fileNum);
-                boolean confirm = confirmWindow("Are you sure you want to push " + filename + "?");
-                if (!confirm) {
+                boolean confirm2 = confirmWindow("Are you sure you want to push " + filename + "?");
+                if (!confirm2) {
                     System.out.println("Push cancelled");
                     break;
                 }
